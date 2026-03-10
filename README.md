@@ -3,7 +3,7 @@ Create an environment and install the required dependencies with:
 ```bash
 conda create --NEURO_PROJECT1 env python=3.10
 conda activate NEURO_PROJECT1
-pip install -r requirements-lock.txt
+pip install -r requirements.txt
 ```
 
 Add a folder data/ in which you put "AO026_20181122_180943.nwb", the data provided to us in this drive: https://drive.google.com/drive/u/1/folders/0AH5XZOjakvTtUk9PVA 
