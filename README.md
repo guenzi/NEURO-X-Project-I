@@ -88,4 +88,4 @@ Scans `data/brut/WR+/` and `data/brut/WR-/` and decides which sessions are usabl
 
 ## Other files
 
-The notebooks `CDMatrix.ipynb`, `CDMatrix_MH029.ipynb`, `CDMatrix_MH031.ipynb`, `results_cd_methods.ipynb`, and `results_mPFC.ipynb` are exploratory or secondary analyses — **they are not part of the main pipeline**.
+The notebooks `CDMatrix.ipynb`, `CDMatrix_MH029.ipynb`, `CDMatrix_MH031.ipynb`, `results_cd_methods_all_methods.ipynb`, and `results_mPFC.ipynb` are exploratory analyses done to find the best detection algorithm. At the end, we used a population score with the projection of the activity on the coding direction.
