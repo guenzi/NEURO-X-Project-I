@@ -53,7 +53,7 @@ Scans `data/brut/WR+/` and `data/brut/WR-/` and decides which sessions are usabl
 |------|----------|-------------|-------|--------------|
 | **WR+** | Water restriction, task positive | 4 amplitude levels (1–4) | ✓ | ✓ |
 | **WR-** | Water restriction, task negative | 4 amplitude levels (1–4) | ✗ | ✗ |
-| **MH\*** | MH files (different NWB format) | Single amplitude → mapped to amp 4 | ✓ | ✗ |
+| **MH\*** | MH files (different NWB format) | Single amplitude → mapped to amp 4 | ✗ | ✗ |
 
 #### Pipeline
 
@@ -62,19 +62,22 @@ Scans `data/brut/WR+/` and `data/brut/WR-/` and decides which sessions are usabl
 3. **`run_session(path, target_area=None)`**: analyses one session
    - Unit selection in the target area (supported columns: `Target_area`, `ccf_parent_acronym`, `brain_area`, `location`)
    - PSTH and population vector score computation
-   - Threshold sweep (`pct_axis = linspace(1, 99.9, 200)` + extension up to `score.max()`)
+   - Threshold sweep: 200 percentile values (`pct_axis = linspace(1, 99.9, 200)`) + 29 extension steps up to `score.max()` → 229 thresholds total
    - TP / FP / FP-catch computed at each threshold
-   - Best threshold via Youden index (with TP4 ≥ 0.5 constraint)
+   - Best threshold via Youden index: (1) argmax(TP4 − FP) with TP4 ≥ 0.5; (2) fallback to TP4 > 0 if no threshold reaches TP4 ≥ 0.5; (3) fallback to index 0 if no detection at all
    - P(lick | ITI detection) computed at each threshold (WR+ only)
    - `EngagedTrials` filter: spikes and trials are trimmed to the last engaged timestamp
-4. **Split**: `results_wrp` (WR+ + MH), `results_wrm` (WR-)
+4. **Split**:
+   - `results_wrp` (WR+ + MH): all sessions with `group == 'WR+'`
+   - `results_wrm` (WR-): all sessions with `group == 'WR-'`
+   - `results_wrp_piezo` (WR+ only, no MH): used for behavioral analysis — MH excluded because they have no piezo signal
 
 #### Plots
 
 | Cell | Content |
 |------|---------|
 | **Plot 1** — PSTH | Mean PSTH per amplitude; for MH files: single "Stim" curve |
-| **Plot 2** — TP/FP | Mean TP/FP + P(lick\|ITI) curves; F1 score matrix (sessions × threshold); d-prime ranking; 4 correlation scatter plots (n_units, n_bursts, peak PSTH stim4) |
+| **Plot 2** — TP/FP | Mean TP/FP + P(lick\|ITI) curves; F1 score matrix (sessions × threshold); d-prime ranking; 3 correlation scatter plots (n_units, n_bursts, peak PSTH stim4) |
 | **Plot 3** — P(lick) | Lick probability by amplitude (WR+ only) |
 | **Stats** | Wilcoxon, Fisher, binomial null tests (WR+ only) — interactive Plotly scatter |
 | **Plot 5** — Lick bouts | Lick bout analysis (WR+ only) |
