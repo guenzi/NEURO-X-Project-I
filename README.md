@@ -1,6 +1,6 @@
 # Whisker Detection Decoding — Project 1
 
-Analysis of NWB sessions from a mouse whisker deflection detection task. The pipeline extracts a neural population vector score and evaluates its ability to discriminate stimulated from non-stimulated trials.
+Analysis of NWB sessions from a mouse whisker deflection detection task. The pipeline extracts a neural population vector score and evaluates its ability to discriminate real stimuli with spontaneous activity in wS1.
 
 ---
 
